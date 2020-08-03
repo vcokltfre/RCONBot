@@ -66,5 +66,19 @@ class RCON(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
+    @commands.command(name="purgeuser")
+    @commands.has_any_role(*ADMIN_ROLES)
+    async def rcon_purge(self, ctx, username):
+        result, data = self.am.whitelist_remove(username)
+
+        resp = self.rcon.command(f"whitelist remove {username}")
+
+        embed = discord.Embed(title="Purge", description=f"User: {username}", colour=0xFF0F0F)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.add_field(name="WLDB Result", value=data)
+        embed.add_field(name="RCON Result", value=resp)
+
+        await ctx.channel.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(RCON(bot))
