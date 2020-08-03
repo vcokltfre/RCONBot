@@ -7,8 +7,11 @@ from config.config import WHITELIST_LIMIT
 
 class AccountManager:
     def __init__(self):
-        path = Path("data/")
-        path.mkdir(parents=True)
+        try:
+            path = Path("data/")
+            path.mkdir(parents=True)
+        except:
+            print("Data path already exists, ignoring.")
         path = Path("data/whitelist.json")
         if not path.exists():
             with path.open("w") as f:
