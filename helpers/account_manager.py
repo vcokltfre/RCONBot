@@ -7,9 +7,6 @@ from config.config import WHITELIST_LIMIT
 
 class AccountManager:
     def __init__(self):
-        pass
-
-    def _init(self):
         path = Path("data/")
         path.mkdir(parents=True)
         path = Path("data/whitelist.json")
