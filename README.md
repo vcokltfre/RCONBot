@@ -4,8 +4,8 @@
 
 #### Setup:
 
-Run `setup.py` to generate a config file, your bot's token can be obtained at the Discord developer portal
-Run `python3 bot.py` to start the bot
+- Run `setup.py` to generate a config file, your bot's token can be obtained at the Discord developer portal
+- Run `python3 bot.py` to start the bot
 
 #### Commands:
 
