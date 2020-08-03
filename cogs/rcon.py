@@ -6,6 +6,7 @@ import discord
 from mcrcon import MCRcon
 
 from config.config import RCON_PASS, RCON_ADDR, RCON_PORT, BYPASS_ROLES, ADMIN_ROLES
+from helpers.account_manager import AccountManager
 
 
 class RCON(commands.Cog):
@@ -15,6 +16,7 @@ class RCON(commands.Cog):
         self.bot = bot
         self.rcon = MCRcon(RCON_ADDR, RCON_PASS, RCON_PORT)
         self.rcon.connect()
+        self.am = AccountManager()
 
     @commands.command(name="rcon")
     @commands.has_any_role(*ADMIN_ROLES)
@@ -29,6 +31,23 @@ class RCON(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
+    @commands.command(name="whitelist")
+    async def rcon_whitelist(self, ctx, username: str):
+        roles = [role.name for role in ctx.author.roles]
+        force = any([role in BYPASS_ROLES for role in roles])
+        result, data = self.am.whitelist_add(username, ctx.author.id, override=force)
+        resp = None
+
+        if result:
+            resp = self.rcon.command(f"whitelist add {username}")
+        else:
+            resp = data
+
+        embed = discord.Embed(title="Whitelist", description=f"User: {username} ({ctx.author.id})", colour=0x0F0FFF)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.add_field(name="Result", value=resp)
+
+        await ctx.channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(RCON(bot))
