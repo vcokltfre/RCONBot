@@ -17,8 +17,13 @@ class AccountManager:
             with path.open("w") as f:
                 json.dump([], f)
 
+    def _write(self, data: object):
+        path = Path("data/whitelist.json")
+        with path.open('w') as f:
+            return json.dump(data, f)
+
     def _get_accounts(self):
-        path = Path("data/")
+        path = Path("data/whitelist.json")
         with path.open() as f:
             return json.load(f)
 
