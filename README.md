@@ -9,6 +9,7 @@
 
 #### Commands:
 
+- `!rcon <command>` executes a command via RCON
 - `!whitelist <username>` whitelists the user 'username'
 - `!unwhitelist <username>` removes 'username' from the whitelist
 - `!purgeuser <username>` forcefully purges 'username' from both the whitelist database and attempts to remove from the server whitelist too, regardless of whether the database purge worked
