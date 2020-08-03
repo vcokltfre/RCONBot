@@ -52,6 +52,7 @@ class AccountManager:
             "name": username,
             "uid": discord_id
         })
+        self._write(data)
         return True, f"Successfully added {username} ({discord_id}) to the whitelist database."
 
     def whitelist_remove(self, username: str):
@@ -61,6 +62,7 @@ class AccountManager:
         for i, item in enumerate(data):
             if item["name"] == username:
                 data.pop(i)
+        self._write(data)
         return True, f"User {username} was removed from the whitelist database."
 
     def count_whitelisted(self):
