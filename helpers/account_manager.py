@@ -44,7 +44,7 @@ class AccountManager:
 
     def whitelist_add(self, username: str, discord_id: int, override: bool = False):
         if self._count_whitelisted(discord_id) >= WHITELIST_LIMIT and not override:
-            return False, "You have exceeded the maximum number of accounts you can whitelist!"
+            return False, f"You have exceeded the maximum number of accounts you can whitelist! ({WHITELIST_LIMIT})"
         if self._is_whitelisted(username):
             return False, "This account is already whitelisted!"
         data = self._get_accounts()
