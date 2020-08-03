@@ -49,5 +49,22 @@ class RCON(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
+    @commands.command(name="unwhitelist")
+    @commands.has_any_role(*ADMIN_ROLES)
+    async def rcon_unwhitelist(self, ctx, username: str):
+        result, data = self.am.whitelist_remove(username)
+        resp = None
+
+        if result:
+            resp = self.rcon.command(f"whitelist remove {username}")
+        else:
+            resp = data
+
+        embed = discord.Embed(title="Unwhitelist", description=f"User: {username}", colour=0xFF0F0F)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.add_field(name="Result", value=resp)
+
+        await ctx.channel.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(RCON(bot))
