@@ -29,7 +29,7 @@ if __name__ == "__main__":
         help_command=commands.MinimalHelpCommand()
     )
 
-    cogs = []
+    cogs = ["cogs.rcon"]
 
     bot.load_extensions(cogs)
     bot.run(TOKEN)
